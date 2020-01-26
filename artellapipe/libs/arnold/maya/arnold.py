@@ -19,7 +19,6 @@ import tpDccLib as tp
 from tpPyUtils import decorators
 
 if tp.is_maya():
-    import tpMayaLib as maya
     from tpMayaLib.core import standin
 
 import artellapipe.register
