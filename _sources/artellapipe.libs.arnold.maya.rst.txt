@@ -1,0 +1,17 @@
+artellapipe.libs.arnold.maya package
+====================================
+
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.arnold.maya.arnold
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.arnold.maya
+   :members:
+   :undoc-members:
+   :show-inheritance:

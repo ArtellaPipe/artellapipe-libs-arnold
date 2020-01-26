@@ -1,0 +1,7 @@
+artellapipe.libs.arnold.core.arnold module
+==========================================
+
+.. automodule:: artellapipe.libs.arnold.core.arnold
+   :members:
+   :undoc-members:
+   :show-inheritance:

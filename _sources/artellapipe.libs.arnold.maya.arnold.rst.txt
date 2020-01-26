@@ -1,0 +1,7 @@
+artellapipe.libs.arnold.maya.arnold module
+==========================================
+
+.. automodule:: artellapipe.libs.arnold.maya.arnold
+   :members:
+   :undoc-members:
+   :show-inheritance:

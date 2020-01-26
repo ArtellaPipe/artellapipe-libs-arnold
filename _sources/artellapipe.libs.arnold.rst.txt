@@ -1,0 +1,19 @@
+artellapipe.libs.arnold package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   artellapipe.libs.arnold.core
+   artellapipe.libs.arnold.houdini
+   artellapipe.libs.arnold.maya
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.arnold
+   :members:
+   :undoc-members:
+   :show-inheritance:
