@@ -40,7 +40,7 @@ class MayaArnold(arnold.AbstractArnold):
             tp.Dcc.load_plugin('mtoa.mll')
 
     def import_standin(self, standin_file, mode='import', nodes=None, parent=None, fix_path=False,
-                       namespace=None, reference=False, as_gpu_cache=True, unique_namespace=True):
+                       namespace=None, reference=False, unique_namespace=True):
         """
         Imports Standin into current DCC scene
 
@@ -52,7 +52,6 @@ class MayaArnold(arnold.AbstractArnold):
         :param fix_path: bool, whether to fix path or not
         :param namespace: str
         :param reference: bool
-        :param as_gpu_cache: bool
         :param unique_namespace: bool
         :return:
         """
@@ -79,20 +78,14 @@ class MayaArnold(arnold.AbstractArnold):
             else:
                 ass_file = standin_file
 
-            if as_gpu_cache:
+            if not reference:
                 res = standin.import_standin(ass_file, namespace=namespace, unique_namespace=unique_namespace)
             else:
                 if reference:
                     if namespace:
                         res = tp.Dcc.reference_file(ass_file, namespace=namespace, unique_namespace=unique_namespace)
                     else:
-                        res = maya.cmds.file(ass_file)
-                else:
-                    if namespace:
-                        res = tp.Dcc.import_file(ass_file, namespace=namespace, unique_namespace=unique_namespace)
-                    else:
-                        res = maya.cmds.file(ass_file)
-
+                        res = tp.Dcc.reference_file(ass_file)
         except RuntimeError as exc:
             exceptions.capture_sentry_exception(exc)
             return res
