@@ -29,6 +29,91 @@ class AbstractArnold(object):
             'load_arnold_plugin function for "{}" is not implemented!'.format(self.__class__.__name__))
 
     @decorators.abstractmethod
+    def get_asset_operator(self, asset_id, connect_to_scene_operator=True, create=True):
+        """
+        Creates asset operator node with the given name
+        :param asset_id: str
+        :param connect_to_scene_operator: bool
+        :param create: bool
+        :return: str or None
+        """
+
+        raise NotImplementedError(
+            'get_asset_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def get_asset_shape_operator(self, asset_id, asset_shape, connect_to_asset_operator=True, create=True):
+        """
+        Creates asset shape operator node with the given name
+        :param asset_id: str
+        :param asset_shape: str
+        :param connect_to_asset_operator: bool
+        :param create: bool
+        :return: str or None
+        """
+
+        raise NotImplementedError(
+            'get_asset_shape_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def get_scene_operator(self):
+        """
+        Returns Arnold scene operator node. The node is created if it does already exists
+        :return:
+        """
+
+        raise NotImplementedError(
+            'get_scene_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def remove_scene_operator(self):
+        """
+        Removes Arnold scene operator node if exists
+        :return:
+        """
+
+        raise NotImplementedError(
+            'remove_scene_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def connect_asset_operator_to_scene_operator(self, asset_operator_name):
+        """
+        Connects given asset operator node to the scene operator node
+        :param asset_operator_name: str
+        :return: bool
+        """
+
+        raise NotImplementedError(
+            'connect_asset_operator_to_scene_operator function for "{}" is not implemented!'.format(
+                self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def connect_asset_shape_operator_to_asset_operator(self, asset_shape_operator_name):
+        """
+        Connects given asset shape operator node to the asset operator node
+        :param asset_shape_operator_name: str
+        :return: bool
+        """
+
+        raise NotImplementedError(
+            'connect_asset_shape_operator_to_asset_operator function for "{}" is not implemented!'.format(
+                self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def add_asset_shape_operator_assignment(self, asset_id, asset_shape, value):
+        """
+        Sets assignment of the given asset shape operator
+        :param asset_id: str
+        :param asset_shape: str
+        :param value: str
+        :return: bool
+        """
+
+        raise NotImplementedError(
+            'add_asset_shape_operator_assignment function for "{}" is not implemented!'.format(
+                self.__class__.__name__))
+
+    @decorators.abstractmethod
     def export_standin(self, *args, **kwargs):
         """
         Exports Standin file with given attributes
