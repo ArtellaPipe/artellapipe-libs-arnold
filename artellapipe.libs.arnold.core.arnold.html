@@ -180,9 +180,63 @@
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.arnold.core.arnold.</code><code class="sig-name descname">AbstractArnold</code><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.add_asset_shape_operator_assignment">
+<code class="sig-name descname">add_asset_shape_operator_assignment</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.add_asset_shape_operator_assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets assignment of the given asset shape operator
+:param asset_id: str
+:param asset_shape: str
+:param value: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_operator_to_scene_operator">
+<code class="sig-name descname">connect_asset_operator_to_scene_operator</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_operator_to_scene_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects given asset operator node to the scene operator node
+:param asset_operator_name: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_shape_operator_to_asset_operator">
+<code class="sig-name descname">connect_asset_shape_operator_to_asset_operator</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_shape_operator_to_asset_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects given asset shape operator node to the asset operator node
+:param asset_shape_operator_name: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.export_standin">
 <code class="sig-name descname">export_standin</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.export_standin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exports Standin file with given attributes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_operator">
+<code class="sig-name descname">get_asset_operator</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates asset operator node with the given name
+:param asset_id: str
+:param connect_to_scene_operator: bool
+:param create: bool
+:return: str or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_shape_operator">
+<code class="sig-name descname">get_asset_shape_operator</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_shape_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates asset shape operator node with the given name
+:param asset_id: str
+:param asset_shape: str
+:param connect_to_asset_operator: bool
+:param create: bool
+:return: str or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_scene_operator">
+<code class="sig-name descname">get_scene_operator</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_scene_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Arnold scene operator node. The node is created if it does already exists
+:return:</p>
 </dd></dl>
 
 <dl class="method">
@@ -211,6 +265,13 @@
 <dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.load_arnold_plugin">
 <code class="sig-name descname">load_arnold_plugin</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.load_arnold_plugin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forces the loading of the Arnold plugin if it is not already loaded</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_scene_operator">
+<code class="sig-name descname">remove_scene_operator</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_scene_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes Arnold scene operator node if exists
+:return:</p>
 </dd></dl>
 
 </dd></dl>
