@@ -12,7 +12,7 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-from tpPyUtils import decorators
+from tpDcc.libs.python import decorators
 
 import artellapipe.register
 
@@ -111,6 +111,20 @@ class AbstractArnold(object):
 
         raise NotImplementedError(
             'add_asset_shape_operator_assignment function for "{}" is not implemented!'.format(
+                self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def remove_asset_shape_operator_assignment(self, asset_id, asset_shape, value):
+        """
+        Removes assignment of the given asset shape operator
+        :param asset_id: str
+        :param asset_shape: str
+        :param value: str
+        :return: bool
+        """
+
+        raise NotImplementedError(
+            'remove_asset_shape_operator_assignment function for "{}" is not implemented!'.format(
                 self.__class__.__name__))
 
     @decorators.abstractmethod

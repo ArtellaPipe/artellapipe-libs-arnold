@@ -15,11 +15,11 @@ __email__ = "tpovedatd@gmail.com"
 import os
 import logging
 
-import tpDccLib as tp
-from tpPyUtils import decorators
+import tpDcc as tp
+from tpDcc.libs.python import decorators
 
-import tpMayaLib as maya
-from tpMayaLib.core import standin, attribute as attr_utils
+import tpDcc.dccs.maya as maya
+from tpDcc.dccs.maya.core import standin, attribute as attr_utils
 
 import artellapipe.register
 from artellapipe.utils import exceptions
@@ -63,8 +63,7 @@ class MayaArnold(arnold.AbstractArnold):
 
         asset_operator_name = '{}_operator'.format(asset_id)
         if tp.Dcc.object_exists(asset_operator_name):
-            LOGGER.warning('Impossible to create Asset Operator node!')
-            return None
+            return asset_operator_name
 
         asset_operator_node = maya.cmds.createNode('aiMerge', name=asset_operator_name)
         tp.Dcc.add_string_attribute(asset_operator_node, 'asset_id')
@@ -74,7 +73,7 @@ class MayaArnold(arnold.AbstractArnold):
 
         return asset_operator_node
 
-    def get_asset_shape_operator(self, asset_id, asset_shape, connect_to_asset_operator=True, create=True):
+    def get_asset_shape_operator(self, asset_id, asset_shape=None, connect_to_asset_operator=True, create=True):
         """
         Creates asset shape operator node with the given name
         :param asset_id: str
@@ -87,22 +86,38 @@ class MayaArnold(arnold.AbstractArnold):
         asset_shape_operator = None
         set_nodes = tp.Dcc.list_nodes(node_type='aiSetParameter') or list()
         for set_node in set_nodes:
-            if tp.Dcc.attribute_exists(set_node, 'asset_shape'):
-                asset_shape_value = tp.Dcc.get_attribute_value(set_node, 'asset_shape')
-                if asset_shape_value == asset_shape:
+            if asset_shape:
+                if tp.Dcc.attribute_exists(set_node, 'asset_shape'):
+                    asset_shape_value = tp.Dcc.get_attribute_value(set_node, 'asset_shape')
+                    if asset_shape_value == asset_shape:
+                        asset_shape_operator = set_node
+                        break
+            else:
+                asset_id_value = None
+                asset_shape_value = None
+                if tp.Dcc.attribute_exists(set_node, 'asset_id'):
+                    asset_id_value = tp.Dcc.get_attribute_value(set_node, 'asset_id')
+                if tp.Dcc.attribute_exists(set_node, 'asset_shape'):
+                    asset_shape_value = tp.Dcc.get_attribute_value(set_node, 'asset_shape')
+                if asset_id_value == asset_id and (not asset_shape_value or asset_shape_value == 'None'):
                     asset_shape_operator = set_node
                     break
+
         if asset_shape_operator:
             return asset_shape_operator
 
         if not create:
             return None
 
-        shape_name = asset_shape.split(':')[-1]
-        asset_shape_node_name = '{}_{}_set'.format(asset_id, shape_name)
+        if asset_shape:
+            shape_name = asset_shape.split(':')[-1]
+            asset_shape_node_name = '{}_{}_set'.format(asset_id, shape_name)
+        else:
+            shape_name = ''
+            asset_shape_node_name = '{}_set'.format(asset_id)
+
         if tp.Dcc.object_exists(asset_shape_node_name):
-            LOGGER.warning('Impossible to create Asset Shape Operator node!')
-            return None
+            return asset_shape_node_name
 
         asset_shape_operator = maya.cmds.createNode('aiSetParameter', name=asset_shape_node_name)
         tp.Dcc.set_string_attribute_value(asset_shape_operator, 'selection', '{}:*{}'.format(asset_id, shape_name))
@@ -203,14 +218,14 @@ class MayaArnold(arnold.AbstractArnold):
         :return: bool
         """
 
-        asset_shape_operator = self.get_asset_shape_operator(asset_id, asset_shape)
+        asset_shape_operator = self.get_asset_shape_operator(asset_id, asset_shape, create=False)
         if not asset_shape_operator or not tp.Dcc.object_exists(asset_shape_operator):
             return False
 
         value_found = False
         existing_assignments = attr_utils.multi_index_list('{}.assignment'.format(asset_shape_operator))
         for i in range(len(existing_assignments)):
-            assign_value = tp.Dcc.get_attribute_value('{}.assignment[{}]'.format(asset_shape_operator, i))
+            assign_value = tp.Dcc.get_attribute_value(asset_shape_operator, 'assignment[{}]'.format(i))
             if assign_value == value:
                 value_found = True
                 break
@@ -219,12 +234,44 @@ class MayaArnold(arnold.AbstractArnold):
             LOGGER.warning('Asset Shape Operator Assignment "{} | {}" already set!'.format(asset_shape_operator, value))
             return False
 
-        next_asset_index = attr_utils.next_available_multi_index(
-            '{}.assignment'.format(asset_shape_operator), use_connected_only=False)
+        next_asset_index = None
+        multi_index = attr_utils.multi_index_list('{}.assignment'.format(asset_shape_operator))
+        for i in range(len(multi_index)):
+            index_attr_value = tp.Dcc.get_attribute_value(asset_shape_operator, 'assignment[{}]'.format(i))
+            if not index_attr_value:
+                next_asset_index = i
+
+        if next_asset_index is None:
+            next_asset_index = attr_utils.next_available_multi_index(
+                '{}.assignment'.format(asset_shape_operator), use_connected_only=False)
 
         tp.Dcc.set_string_attribute_value(asset_shape_operator, 'assignment[{}]'.format(next_asset_index), value)
 
         return True
+
+    def remove_asset_shape_operator_assignment(self, asset_id, asset_shape, value):
+        """
+        Removes assignment of the given asset shape operator
+        :param asset_id: str
+        :param asset_shape: str
+        :param value: str
+        :return: bool
+        """
+
+        asset_shape_operator = self.get_asset_shape_operator(asset_id, asset_shape, create=False)
+        if not asset_shape_operator or not tp.Dcc.object_exists(asset_shape_operator):
+            return False
+
+        value_removed = False
+        existing_assignments = attr_utils.multi_index_list('{}.assignment'.format(asset_shape_operator))
+        for i in range(len(existing_assignments)):
+            assign_value = tp.Dcc.get_attribute_value(asset_shape_operator, 'assignment[{}]'.format(i))
+            if assign_value.startswith(value):
+                tp.Dcc.set_string_attribute_value(asset_shape_operator, 'assignment[{}]'.format(i), '')
+                value_removed = True
+                break
+
+        return value_removed
 
     def import_standin(self, standin_file, mode='import', nodes=None, parent=None, fix_path=False,
                        namespace=None, reference=False, unique_namespace=True):
