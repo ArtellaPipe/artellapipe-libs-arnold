@@ -24,7 +24,7 @@ import artellapipe
 from artellapipe.utils import exceptions
 from artellapipe.libs import arnold as arnold_lib
 from artellapipe.libs.arnold.core import arnold
-from artellapipe.libs.usd.core import usdutils
+from artellapipe.libs.usd.core import usdutils, usdcat
 
 LOGGER = logging.getLogger('artellapipe-libs-arnold')
 
@@ -353,7 +353,7 @@ class MayaArnold(arnold.AbstractArnold):
 
     def export_usd(
             self, file_directory, file_name, extension=usdutils.UsdFormats.Text,
-            export_shapes=True, export_shaders=True):
+            export_shapes=True, export_shaders=True, export_selection=False):
 
         if not self.is_arnold_usd_available():
             LOGGER.warning('Impossible to export Arnold USD file. Arnold USD is not available!')
@@ -365,6 +365,19 @@ class MayaArnold(arnold.AbstractArnold):
         full_file_name = '{}{}'.format(file_name, extension)
         file_path = os.path.join(file_directory, full_file_name)
 
-        return maya.cmds.arnoldExportAss(
-            f=file_path, s=True, shadowLinks=0, mask=8, lightLinks=0, boundingBox=True,
-            fullPath=True, asciiAs=True, cam='perspShape')
+        out_file = maya.cmds.file(
+            file_path, force=True, options='-shadowLinks 0;-mask 8;-lightLinks 0;-boundingBox;-asciiAss',
+            typ='Arnold-USD', pr=True, ea=not export_selection, es=export_selection)
+        if not out_file:
+            LOGGER.error('Something went wrong while exporting Arnold USD file')
+            return False
+
+        out_ext = os.path.splitext(os.path.basename(out_file))[-1]
+        if out_ext == usdutils.UsdFormats.Generic:
+            if extension == usdutils.UsdFormats.Text:
+                valid_conversion = usdcat.convert_usd_file(out_file, extension, clean_original=False)
+                if not valid_conversion:
+                    LOGGER.error('Something went wrong while convert USD file: {} > {}'.format(out_ext, extension))
+                    return False
+
+        return True

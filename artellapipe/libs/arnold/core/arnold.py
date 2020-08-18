@@ -167,7 +167,7 @@ class AbstractArnold(object):
     @decorators.abstractmethod
     def export_usd(
             self, file_directory, file_name, extension=usdutils.UsdFormats.Text,
-            export_shapes=True, export_shaders=True):
+            export_shapes=True, export_shaders=True, export_selection=False):
 
         raise NotImplementedError(
             'export_usd function for "{}" is not implemented!'.format(self.__class__.__name__))
