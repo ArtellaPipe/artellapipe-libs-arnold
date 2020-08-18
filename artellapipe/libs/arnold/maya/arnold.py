@@ -16,17 +16,17 @@ import os
 import logging
 
 import tpDcc as tp
-from tpDcc.libs.python import decorators
 
 import tpDcc.dccs.maya as maya
 from tpDcc.dccs.maya.core import standin, attribute as attr_utils
 
-import artellapipe.register
+import artellapipe
 from artellapipe.utils import exceptions
 from artellapipe.libs import arnold as arnold_lib
 from artellapipe.libs.arnold.core import arnold
+from artellapipe.libs.usd.core import usdutils
 
-LOGGER = logging.getLogger()
+LOGGER = logging.getLogger('artellapipe-libs-arnold')
 
 
 class MayaArnold(arnold.AbstractArnold):
@@ -38,6 +38,26 @@ class MayaArnold(arnold.AbstractArnold):
 
         if not tp.Dcc.is_plugin_loaded('mtoa.mll'):
             tp.Dcc.load_plugin('mtoa.mll')
+
+    def is_arnold_usd_available(self):
+        """
+        Returns whether or not Arnold USD libraries and schemas are available in current session
+        :return: bool
+        """
+
+        try:
+            import UsdArnold
+        except Exception:
+            return False
+
+        return True
+
+    def load_arnold_usd_plugin(self):
+        """
+        Forces the loading of the Arnold USD plugin if it is not already loaded
+        """
+
+        pass
 
     def get_asset_operator(self, asset_id, connect_to_scene_operator=True, create=True):
         """
@@ -331,11 +351,20 @@ class MayaArnold(arnold.AbstractArnold):
 
         return res
 
+    def export_usd(
+            self, file_directory, file_name, extension=usdutils.UsdFormats.Text,
+            export_shapes=True, export_shaders=True):
 
-@decorators.Singleton
-class MayaArnoldSingleton(MayaArnold, object):
-    def __init__(self):
-        MayaArnold.__init__(self)
+        if not self.is_arnold_usd_available():
+            LOGGER.warning('Impossible to export Arnold USD file. Arnold USD is not available!')
+            return False
 
+        if not extension.startswith('.'):
+            extension = '.{}'.format(extension)
 
-artellapipe.register.register_class('Arnold', MayaArnoldSingleton)
+        full_file_name = '{}{}'.format(file_name, extension)
+        file_path = os.path.join(file_directory, full_file_name)
+
+        return maya.cmds.arnoldExportAss(
+            f=file_path, s=True, shadowLinks=0, mask=8, lightLinks=0, boundingBox=True,
+            fullPath=True, asciiAs=True, cam='perspShape')

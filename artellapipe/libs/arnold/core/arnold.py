@@ -13,8 +13,7 @@ __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
 from tpDcc.libs.python import decorators
-
-import artellapipe.register
+from artellapipe.libs.usd.core import usdutils
 
 
 class AbstractArnold(object):
@@ -27,6 +26,16 @@ class AbstractArnold(object):
 
         raise NotImplementedError(
             'load_arnold_plugin function for "{}" is not implemented!'.format(self.__class__.__name__))
+
+    @decorators.abstractmethod
+    def is_arnold_usd_available(self):
+        """
+        Returns whether or not Arnold USD libraries and schemas are available in current session
+        :return: bool
+        """
+
+        raise NotImplementedError(
+            'is_arnold_usd_available function for "{}" is not implemented!'.format(self.__class__.__name__))
 
     @decorators.abstractmethod
     def get_asset_operator(self, asset_id, connect_to_scene_operator=True, create=True):
@@ -155,11 +164,10 @@ class AbstractArnold(object):
         raise NotImplementedError(
             'import_standin function for "{}" is not implemented!'.format(self.__class__.__name__))
 
+    @decorators.abstractmethod
+    def export_usd(
+            self, file_directory, file_name, extension=usdutils.UsdFormats.Text,
+            export_shapes=True, export_shaders=True):
 
-@decorators.Singleton
-class AbstractArnoldSingleton(AbstractArnold, object):
-    def __init__(self):
-        AbstractArnold.__init__(self)
-
-
-artellapipe.register.register_class('Arnold', AbstractArnoldSingleton)
+        raise NotImplementedError(
+            'export_usd function for "{}" is not implemented!'.format(self.__class__.__name__))
