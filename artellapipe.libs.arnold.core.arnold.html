@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="artellapipe.libs.arnold.houdini package" href="artellapipe.libs.arnold.houdini.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> artellapipe
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> artellapipe
           
 
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -102,6 +104,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -140,7 +143,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="modules.html">artellapipe</a> &raquo;</li>
         
@@ -172,126 +175,8 @@
 
            <div itemprop="articleBody">
             
-  <div class="section" id="module-artellapipe.libs.arnold.core.arnold">
-<span id="artellapipe-libs-arnold-core-arnold-module"></span><h1>artellapipe.libs.arnold.core.arnold module<a class="headerlink" href="#module-artellapipe.libs.arnold.core.arnold" title="Permalink to this headline">¶</a></h1>
-<p>Module that contains utilities functions to work with Arnold</p>
-<dl class="class">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold">
-<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.arnold.core.arnold.</code><code class="sig-name descname">AbstractArnold</code><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.add_asset_shape_operator_assignment">
-<code class="sig-name descname">add_asset_shape_operator_assignment</code><span class="sig-paren">(</span><em class="sig-param">asset_id</em>, <em class="sig-param">asset_shape</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.add_asset_shape_operator_assignment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets assignment of the given asset shape operator
-:param asset_id: str
-:param asset_shape: str
-:param value: str
-:return: bool</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_operator_to_scene_operator">
-<code class="sig-name descname">connect_asset_operator_to_scene_operator</code><span class="sig-paren">(</span><em class="sig-param">asset_operator_name</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_operator_to_scene_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects given asset operator node to the scene operator node
-:param asset_operator_name: str
-:return: bool</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_shape_operator_to_asset_operator">
-<code class="sig-name descname">connect_asset_shape_operator_to_asset_operator</code><span class="sig-paren">(</span><em class="sig-param">asset_shape_operator_name</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_shape_operator_to_asset_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connects given asset shape operator node to the asset operator node
-:param asset_shape_operator_name: str
-:return: bool</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.export_standin">
-<code class="sig-name descname">export_standin</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.export_standin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exports Standin file with given attributes</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_operator">
-<code class="sig-name descname">get_asset_operator</code><span class="sig-paren">(</span><em class="sig-param">asset_id</em>, <em class="sig-param">connect_to_scene_operator=True</em>, <em class="sig-param">create=True</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates asset operator node with the given name
-:param asset_id: str
-:param connect_to_scene_operator: bool
-:param create: bool
-:return: str or None</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_shape_operator">
-<code class="sig-name descname">get_asset_shape_operator</code><span class="sig-paren">(</span><em class="sig-param">asset_id</em>, <em class="sig-param">asset_shape</em>, <em class="sig-param">connect_to_asset_operator=True</em>, <em class="sig-param">create=True</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_shape_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates asset shape operator node with the given name
-:param asset_id: str
-:param asset_shape: str
-:param connect_to_asset_operator: bool
-:param create: bool
-:return: str or None</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_scene_operator">
-<code class="sig-name descname">get_scene_operator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_scene_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns Arnold scene operator node. The node is created if it does already exists
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.import_standin">
-<code class="sig-name descname">import_standin</code><span class="sig-paren">(</span><em class="sig-param">standin_file</em>, <em class="sig-param">mode='import'</em>, <em class="sig-param">nodes=None</em>, <em class="sig-param">parent=None</em>, <em class="sig-param">fix_path=False</em>, <em class="sig-param">namespace=None</em>, <em class="sig-param">reference=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.import_standin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Imports Standin into current DCC scene</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>standin_file</strong> (<em>str</em>) – file we want to load</p></li>
-<li><p><strong>mode</strong> (<em>str</em>) – mode we want to use to import the Standin File</p></li>
-<li><p><strong>nodes</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – optional list of nodes to import</p></li>
-<li><p><strong>parent</strong> – </p></li>
-<li><p><strong>fix_path</strong> – bool, whether to fix path or not</p></li>
-<li><p><strong>namespace</strong> – str</p></li>
-<li><p><strong>reference</strong> – bool, whether to fix path or not</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.load_arnold_plugin">
-<code class="sig-name descname">load_arnold_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.load_arnold_plugin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Forces the loading of the Arnold plugin if it is not already loaded</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_asset_shape_operator_assignment">
-<code class="sig-name descname">remove_asset_shape_operator_assignment</code><span class="sig-paren">(</span><em class="sig-param">asset_id</em>, <em class="sig-param">asset_shape</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_asset_shape_operator_assignment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes assignment of the given asset shape operator
-:param asset_id: str
-:param asset_shape: str
-:param value: str
-:return: bool</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_scene_operator">
-<code class="sig-name descname">remove_scene_operator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_scene_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes Arnold scene operator node if exists
-:return:</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnoldSingleton">
-<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.arnold.core.arnold.</code><code class="sig-name descname">AbstractArnoldSingleton</code><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnoldSingleton" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold" title="artellapipe.libs.arnold.core.arnold.AbstractArnold"><code class="xref py py-class docutils literal notranslate"><span class="pre">artellapipe.libs.arnold.core.arnold.AbstractArnold</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-</dd></dl>
-
+  <div class="section" id="artellapipe-libs-arnold-core-arnold-module">
+<h1>artellapipe.libs.arnold.core.arnold module<a class="headerlink" href="#artellapipe-libs-arnold-core-arnold-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -318,11 +203,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2019, Tomas Poveda
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -333,7 +226,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
