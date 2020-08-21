@@ -1,12 +1,5 @@
 # ===================================================================
 # artellapipe-libs-arnold requirements file
 # ===================================================================
-gspread
-oauth2client
-pytest
-pytest-cov
-coveralls
-sphinx
-sphinx_rtd_theme
 tpDcc-libs-python
 artellapipe
