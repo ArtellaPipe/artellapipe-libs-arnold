@@ -175,8 +175,132 @@
 
            <div itemprop="articleBody">
             
-  <div class="section" id="artellapipe-libs-arnold-core-arnold-module">
-<h1>artellapipe.libs.arnold.core.arnold module<a class="headerlink" href="#artellapipe-libs-arnold-core-arnold-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-artellapipe.libs.arnold.core.arnold">
+<span id="artellapipe-libs-arnold-core-arnold-module"></span><h1>artellapipe.libs.arnold.core.arnold module<a class="headerlink" href="#module-artellapipe.libs.arnold.core.arnold" title="Permalink to this headline">¶</a></h1>
+<p>Module that contains utilities functions to work with Arnold</p>
+<dl class="py class">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold">
+<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.arnold.core.arnold.</code><code class="sig-name descname">AbstractArnold</code><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.add_asset_shape_operator_assignment">
+<code class="sig-name descname">add_asset_shape_operator_assignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">asset_id</span></em>, <em class="sig-param"><span class="n">asset_shape</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.add_asset_shape_operator_assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets assignment of the given asset shape operator
+:param asset_id: str
+:param asset_shape: str
+:param value: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_operator_to_scene_operator">
+<code class="sig-name descname">connect_asset_operator_to_scene_operator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">asset_operator_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_operator_to_scene_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects given asset operator node to the scene operator node
+:param asset_operator_name: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_shape_operator_to_asset_operator">
+<code class="sig-name descname">connect_asset_shape_operator_to_asset_operator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">asset_shape_operator_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.connect_asset_shape_operator_to_asset_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects given asset shape operator node to the asset operator node
+:param asset_shape_operator_name: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.export_standin">
+<code class="sig-name descname">export_standin</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.export_standin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports Standin file with given attributes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.export_usd">
+<code class="sig-name descname">export_usd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_directory</span></em>, <em class="sig-param"><span class="n">file_name</span></em>, <em class="sig-param"><span class="n">extension</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">export_shapes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">export_shaders</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">export_selection</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.export_usd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_operator">
+<code class="sig-name descname">get_asset_operator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">asset_id</span></em>, <em class="sig-param"><span class="n">connect_to_scene_operator</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">create</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates asset operator node with the given name
+:param asset_id: str
+:param connect_to_scene_operator: bool
+:param create: bool
+:return: str or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_shape_operator">
+<code class="sig-name descname">get_asset_shape_operator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">asset_id</span></em>, <em class="sig-param"><span class="n">asset_shape</span></em>, <em class="sig-param"><span class="n">connect_to_asset_operator</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">create</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_asset_shape_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates asset shape operator node with the given name
+:param asset_id: str
+:param asset_shape: str
+:param connect_to_asset_operator: bool
+:param create: bool
+:return: str or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.get_scene_operator">
+<code class="sig-name descname">get_scene_operator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.get_scene_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Arnold scene operator node. The node is created if it does already exists
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.import_standin">
+<code class="sig-name descname">import_standin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">standin_file</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'import'</span></em>, <em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fix_path</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">namespace</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">reference</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.import_standin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports Standin into current DCC scene</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>standin_file</strong> (<em>str</em>) – file we want to load</p></li>
+<li><p><strong>mode</strong> (<em>str</em>) – mode we want to use to import the Standin File</p></li>
+<li><p><strong>nodes</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – optional list of nodes to import</p></li>
+<li><p><strong>parent</strong> – </p></li>
+<li><p><strong>fix_path</strong> – bool, whether to fix path or not</p></li>
+<li><p><strong>namespace</strong> – str</p></li>
+<li><p><strong>reference</strong> – bool, whether to fix path or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.is_arnold_usd_available">
+<code class="sig-name descname">is_arnold_usd_available</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.is_arnold_usd_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not Arnold USD libraries and schemas are available in current session
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.load_arnold_plugin">
+<code class="sig-name descname">load_arnold_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.load_arnold_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forces the loading of the Arnold plugin if it is not already loaded</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_asset_shape_operator_assignment">
+<code class="sig-name descname">remove_asset_shape_operator_assignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">asset_id</span></em>, <em class="sig-param"><span class="n">asset_shape</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_asset_shape_operator_assignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes assignment of the given asset shape operator
+:param asset_id: str
+:param asset_shape: str
+:param value: str
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_scene_operator">
+<code class="sig-name descname">remove_scene_operator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.arnold.core.arnold.AbstractArnold.remove_scene_operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes Arnold scene operator node if exists
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
