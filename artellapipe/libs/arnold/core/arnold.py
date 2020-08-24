@@ -13,7 +13,6 @@ __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
 from tpDcc.libs.python import decorators
-from artellapipe.libs.usd.core import usdutils
 
 
 class AbstractArnold(object):
@@ -166,7 +165,7 @@ class AbstractArnold(object):
 
     @decorators.abstractmethod
     def export_usd(
-            self, file_directory, file_name, extension=usdutils.UsdFormats.Text,
+            self, file_directory, file_name, extension=None,
             export_shapes=True, export_shaders=True, export_selection=False):
 
         raise NotImplementedError(
