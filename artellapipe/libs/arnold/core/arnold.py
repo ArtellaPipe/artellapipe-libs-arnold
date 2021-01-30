@@ -7,166 +7,183 @@ Module that contains utilities functions to work with Arnold
 
 from __future__ import print_function, division, absolute_import
 
-__author__ = "Tomas Poveda"
-__license__ = "MIT"
-__maintainer__ = "Tomas Poveda"
-__email__ = "tpovedatd@gmail.com"
+from tpDcc.core import dcc as core_dcc
+from tpDcc.core import library, reroute
 
-from tpDcc.libs.python import decorators
+from artellapipe.libs.arnold.core import consts
 
 
-class AbstractArnold(object):
+class ArnodlLib(library.DccLibrary, object):
 
-    @decorators.abstractmethod
-    def load_arnold_plugin(self):
-        """
-        Forces the loading of the Arnold plugin if it is not already loaded
-        """
+    ID = consts.LIB_ID
 
-        raise NotImplementedError(
-            'load_arnold_plugin function for "{}" is not implemented!'.format(self.__class__.__name__))
+    def __init__(self, *args, **kwargs):
+        super(ArnodlLib, self).__init__(*args, **kwargs)
 
-    @decorators.abstractmethod
-    def is_arnold_usd_available(self):
-        """
-        Returns whether or not Arnold USD libraries and schemas are available in current session
-        :return: bool
-        """
+    @classmethod
+    def config_dict(cls):
+        base_tool_config = library.DccLibrary.config_dict()
+        tool_config = {
+            'name': 'Arnold Library',
+            'id': ArnodlLib.ID,
+            'supported_dccs': {
+                core_dcc.Dccs.Maya: ['2017', '2018', '2019', '2020'],
+                core_dcc.Dccs.Houdini: ['18.0.391']
+            },
+            'tooltip': 'Library to handle Alembics',
+            'root': cls.ROOT if hasattr(cls, 'ROOT') else '',
+            'file': cls.PATH if hasattr(cls, 'PATH') else '',
+        }
+        base_tool_config.update(tool_config)
 
-        raise NotImplementedError(
-            'is_arnold_usd_available function for "{}" is not implemented!'.format(self.__class__.__name__))
+        return base_tool_config
 
-    @decorators.abstractmethod
-    def get_asset_operator(self, asset_id, connect_to_scene_operator=True, create=True):
-        """
-        Creates asset operator node with the given name
-        :param asset_id: str
-        :param connect_to_scene_operator: bool
-        :param create: bool
-        :return: str or None
-        """
 
-        raise NotImplementedError(
-            'get_asset_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def load_arnold_plugin():
+    """
+    Forces the loading of the Arnold plugin if it is not already loaded
+    """
 
-    @decorators.abstractmethod
-    def get_asset_shape_operator(self, asset_id, asset_shape, connect_to_asset_operator=True, create=True):
-        """
-        Creates asset shape operator node with the given name
-        :param asset_id: str
-        :param asset_shape: str
-        :param connect_to_asset_operator: bool
-        :param create: bool
-        :return: str or None
-        """
+    raise NotImplementedError('load_arnold_plugin function is not implemented!')
 
-        raise NotImplementedError(
-            'get_asset_shape_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
 
-    @decorators.abstractmethod
-    def get_scene_operator(self):
-        """
-        Returns Arnold scene operator node. The node is created if it does already exists
-        :return:
-        """
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def is_arnold_usd_available():
+    """
+    Returns whether or not Arnold USD libraries and schemas are available in current session
+    :return: bool
+    """
 
-        raise NotImplementedError(
-            'get_scene_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+    raise NotImplementedError('is_arnold_usd_available function is not implemented!')
 
-    @decorators.abstractmethod
-    def remove_scene_operator(self):
-        """
-        Removes Arnold scene operator node if exists
-        :return:
-        """
 
-        raise NotImplementedError(
-            'remove_scene_operator function for "{}" is not implemented!'.format(self.__class__.__name__))
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def get_asset_operator(asset_id, connect_to_scene_operator=True, create=True):
+    """
+    Creates asset operator node with the given name
+    :param asset_id: str
+    :param connect_to_scene_operator: bool
+    :param create: bool
+    :return: str or None
+    """
 
-    @decorators.abstractmethod
-    def connect_asset_operator_to_scene_operator(self, asset_operator_name):
-        """
-        Connects given asset operator node to the scene operator node
-        :param asset_operator_name: str
-        :return: bool
-        """
+    raise NotImplementedError('get_asset_operator function is not implemented!')
 
-        raise NotImplementedError(
-            'connect_asset_operator_to_scene_operator function for "{}" is not implemented!'.format(
-                self.__class__.__name__))
 
-    @decorators.abstractmethod
-    def connect_asset_shape_operator_to_asset_operator(self, asset_shape_operator_name):
-        """
-        Connects given asset shape operator node to the asset operator node
-        :param asset_shape_operator_name: str
-        :return: bool
-        """
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def get_asset_shape_operator(asset_id, asset_shape, connect_to_asset_operator=True, create=True):
+    """
+    Creates asset shape operator node with the given name
+    :param asset_id: str
+    :param asset_shape: str
+    :param connect_to_asset_operator: bool
+    :param create: bool
+    :return: str or None
+    """
 
-        raise NotImplementedError(
-            'connect_asset_shape_operator_to_asset_operator function for "{}" is not implemented!'.format(
-                self.__class__.__name__))
+    raise NotImplementedError('get_asset_shape_operator function is not implemented!')
 
-    @decorators.abstractmethod
-    def add_asset_shape_operator_assignment(self, asset_id, asset_shape, value):
-        """
-        Sets assignment of the given asset shape operator
-        :param asset_id: str
-        :param asset_shape: str
-        :param value: str
-        :return: bool
-        """
 
-        raise NotImplementedError(
-            'add_asset_shape_operator_assignment function for "{}" is not implemented!'.format(
-                self.__class__.__name__))
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def get_scene_operator():
+    """
+    Returns Arnold scene operator node. The node is created if it does already exists
+    :return:
+    """
 
-    @decorators.abstractmethod
-    def remove_asset_shape_operator_assignment(self, asset_id, asset_shape, value):
-        """
-        Removes assignment of the given asset shape operator
-        :param asset_id: str
-        :param asset_shape: str
-        :param value: str
-        :return: bool
-        """
+    raise NotImplementedError('get_scene_operator function is not implemented!')
 
-        raise NotImplementedError(
-            'remove_asset_shape_operator_assignment function for "{}" is not implemented!'.format(
-                self.__class__.__name__))
 
-    @decorators.abstractmethod
-    def export_standin(self, *args, **kwargs):
-        """
-        Exports Standin file with given attributes
-        """
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def remove_scene_operator():
+    """
+    Removes Arnold scene operator node if exists
+    :return:
+    """
 
-        raise NotImplementedError(
-            'export_standin function for "{}" is not implemented!'.format(self.__class__.__name__))
+    raise NotImplementedError('remove_scene_operator function is not implemented!')
 
-    @decorators.abstractmethod
-    def import_standin(self, standin_file, mode='import', nodes=None, parent=None, fix_path=False,
-                       namespace=None, reference=False, **kwargs):
-        """
-        Imports Standin into current DCC scene
 
-        :param str standin_file: file we want to load
-        :param str mode: mode we want to use to import the Standin File
-        :param list(str) nodes: optional list of nodes to import
-        :param parent:
-        :param fix_path: bool, whether to fix path or not
-        :param namespace: str
-        :param reference: bool, whether to fix path or not
-        :return:
-        """
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def connect_asset_operator_to_scene_operator(asset_operator_name):
+    """
+    Connects given asset operator node to the scene operator node
+    :param asset_operator_name: str
+    :return: bool
+    """
 
-        raise NotImplementedError(
-            'import_standin function for "{}" is not implemented!'.format(self.__class__.__name__))
+    raise NotImplementedError('connect_asset_operator_to_scene_operator function is not implemented!')
 
-    @decorators.abstractmethod
-    def export_usd(
-            self, file_directory, file_name, extension=None,
-            export_shapes=True, export_shaders=True, export_selection=False):
 
-        raise NotImplementedError(
-            'export_usd function for "{}" is not implemented!'.format(self.__class__.__name__))
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def connect_asset_shape_operator_to_asset_operator(asset_shape_operator_name):
+    """
+    Connects given asset shape operator node to the asset operator node
+    :param asset_shape_operator_name: str
+    :return: bool
+    """
+
+    raise NotImplementedError('connect_asset_shape_operator_to_asset_operator function is not implemented!')
+
+
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def add_asset_shape_operator_assignment(asset_id, asset_shape, value):
+    """
+    Sets assignment of the given asset shape operator
+    :param asset_id: str
+    :param asset_shape: str
+    :param value: str
+    :return: bool
+    """
+
+    raise NotImplementedError('add_asset_shape_operator_assignment function is not implemented!')
+
+
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def remove_asset_shape_operator_assignment(asset_id, asset_shape, value):
+    """
+    Removes assignment of the given asset shape operator
+    :param asset_id: str
+    :param asset_shape: str
+    :param value: str
+    :return: bool
+    """
+
+    raise NotImplementedError('remove_asset_shape_operator_assignment function is not implemented!')
+
+
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def export_standin(self, *args, **kwargs):
+    """
+    Exports Standin file with given attributes
+    """
+
+    raise NotImplementedError('export_standin function is not implemented!')
+
+
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def import_standin(
+        standin_file, mode='import', nodes=None, parent=None, fix_path=False, namespace=None, reference=False, **kwargs):
+    """
+    Imports Standin into current DCC scene
+
+    :param str standin_file: file we want to load
+    :param str mode: mode we want to use to import the Standin File
+    :param list(str) nodes: optional list of nodes to import
+    :param parent:
+    :param fix_path: bool, whether to fix path or not
+    :param namespace: str
+    :param reference: bool, whether to fix path or not
+    :return:
+    """
+
+    raise NotImplementedError('import_standin function is not implemented!')
+
+
+@reroute.reroute_factory(ArnodlLib.ID, 'arnold')
+def export_usd(
+        file_directory, file_name, extension=None,
+        export_shapes=True, export_shaders=True, export_selection=False):
+
+    raise NotImplementedError('export_usd function is not implemented!')
